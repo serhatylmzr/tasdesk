@@ -1,0 +1,654 @@
+{% extends 'tasdesk-frontend/layouts/master.html' %}
+{% load static %}
+{% block title %}Kullanıcı Adı {% endblock %}
+{% block body %}
+		<section class="cover-sec">
+			<img src="http://via.placeholder.com/1600x400" alt="">
+			<a href="#" title=""><i class="fa fa-camera"></i> Change Image</a>
+		</section>
+
+
+		<main>
+			<div class="main-section">
+				<div class="container">
+					<div class="main-section-data">
+						<div class="row">
+							<div class="col-lg-3">
+                            {% include 'tasdesk-frontend/user-profile/user-leftmenu.html' %}
+							</div>
+							<div class="col-lg-6">
+								<div class="main-ws-sec">
+									<div class="user-tab-sec">
+										<h3>{{ username.get_full_name }}</h3>
+										<div class="star-descp">
+											<span>{{ username.user_job }}</span>
+											<ul>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star"></i></li>
+												<li><i class="fa fa-star-half-o"></i></li>
+											</ul>
+											<a href="#" title="">Durum</a>
+										</div><!--star-descp end-->
+										<div class="tab-feed st2">
+											<ul>
+												<li data-tab="feed-dd" class="active">
+													<a href="#" title="">
+														<img src="{% static 'tasdesk-frontend/images/ic1.png' %}" alt="">
+														<span>Paylaşımlar</span>
+													</a>
+												</li>
+												<li data-tab="info-dd">
+													<a href="#" title="">
+														<img src="{% static 'tasdesk-frontend/images/ic2.png' %}" alt="">
+														<span>Bilgiler</span>
+													</a>
+												</li>
+											</ul>
+										</div><!-- tab-feed end-->
+									</div><!--user-tab-sec end-->
+									<div class="product-feed-tab current" id="feed-dd">
+										<div class="posts-section">
+                                        {% if username.is_designer == 1 %}
+                                                {% for design in username.designs.all %}
+                                            <div class="posty" style="margin-bottom:20px;">
+                                                <div class="post-bar no-margin">
+                                                    <div class="post-bar">
+                                                        <div class="post_topbar">
+                                                            <div class="usy-dt">
+                                                                 {% if design.user.user_detail.get.user_profile_image %}
+                                                                    <img src="{{ design.user.user_detail.get.user_profile_image.url }}" width="50" height="50" alt="">
+                                                                {% else %}
+                                                                     <img src="http://via.placeholder.com/50x50" alt="">
+                                                                {% endif %}
+                                                                <div class="usy-name">
+                                                                    <h3>{{ design.user.get_full_name }}</h3>
+                                                                    <span><img
+                                                                            src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                            alt="">{{ design.publishing_date }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ed-opts">
+                                                                <a href="#" title="" class="ed-opts-open"><i
+                                                                        class="la la-ellipsis-v"></i></a>
+                                                                <ul class="ed-options">
+                                                                    <li><a href="#" title="">Tasarımı Düzenle</a></li>
+                                                                    <li><a href="#" title="">Sil</a></li>
+                                                                    <li><a href="#" title="">Gizle</a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                        <div class="epi-sec">
+                                                            <ul class="descp">
+                                                                <li><img
+                                                                        src="{% static 'tasdesk-frontend/images/icon8.png' %}"
+                                                                        alt=""><span>{{ design.user.user_detail.get.user_job }}</span></li>
+                                                                <li><img
+                                                                        src="{% static 'tasdesk-frontend/images/icon9.png' %}"
+                                                                        alt=""><span>India</span></li>
+                                                            </ul>
+                                                            <ul class="bk-links">
+                                                                <li><a href="#" title=""><i class="la la-bookmark"></i></a>
+                                                                </li>
+                                                                <li><a href="#" title=""><i class="la la-envelope"></i></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="job_descp" >
+                                                                {% if design.design_image %}
+                                                                <img src="{{ design.design_image.url }}" style="max-height: 300px;max-width: 500px;">
+                                                                {% endif %}
+                                                        </div>
+                                                        <div class="job_descp">
+                                                            <h3 style="margin-top:10px" >{{ design.design_title }}</h3>
+                                                            <h4>
+                                                                <ul class="job-dt">
+                                                                    <li><a href="#"
+                                                                           title="">{{ design.category.category_title }}</a>
+                                                                    </li>
+                                                                </ul>
+                                                                <p>
+                                                            </h4>
+                                                            {{ design.design_content|safe|linebreaks|truncatechars:150 }}
+                                                            <a href="#" title="">daha fazla</a></p>
+                                                        </div>
+                                                    {% if user.is_authenticated %}
+                                                        <div class="job-status-bar">
+
+                                                            <ul class="like-com">
+                                                                <li>
+                                                                    <input type="hidden" name="design_id"
+                                                                           value="{{ design.design_title }}">
+                                                                    <input type="hidden" name="user_id"
+                                                                           value="{{ request.user.get_full_name }}">
+                                                                    <a onclick="designLike({{ design.id }})"><i
+                                                                            class="la la-heart color-{{ design.id }}"></i></a>
+                                                                    <img src="{% static 'tasdesk-frontend/images/liked-img.png' %}"
+                                                                         alt="">
+                                                                    <span><div
+                                                                            id="design-total-like-{{ design.id }}">{{ design.total_likes }}</div></span>
+
+                                                                </li>
+                                                                <li><a onclick="designShowComment({{ design.id }})"
+                                                                       class="com" id="design-total-comments-{{ design.id }}"><img
+                                                                        src="{% static 'tasdesk-frontend/images/com.png' %}"
+                                                                        alt=""> Yorum {{ design.comments.all.count }}</a>
+                                                                </li>
+                                                            </ul>
+                                                            <a><i class="la la-eye"></i>Görüntülenme {{ design.views.all.count }}
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                    </div><!--post-bar end-->
+                                                    <div id="advert-comment-{{ design.id }}" style="display: none"
+                                                         class="comment-section">
+                                                        <div class="plus-ic">
+                                                            <i class="la la-plus"></i>
+                                                        </div>
+                                                        <div class="comment-sec">
+                                                            <ul>
+                                                                {% for comment in design.comments.all %}
+                                                                    <li>
+                                                                        <div class="comment-list">
+                                                                            <div class="bg-img">
+                                                                                {% if comment.user.user_detail.get.user_profile_image %}
+                                                                                    <img src="{{ comment.user.user_detail.get.user_profile_image.url }}" width="40" height="40" alt="">
+                                                                                {% else %}
+                                                                                     <img src="http://via.placeholder.com/40x40" alt="">
+                                                                                {% endif %}
+                                                                            </div>
+                                                                            <div class="comment">
+                                                                                <h3>{{ comment.user.get_full_name }}</h3>
+                                                                                <span><img
+                                                                                        src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                                        alt=""> {{ comment.created_date }}</span>
+                                                                                <p>{{ comment.comment_content|linebreaks }} </p>
+
+                                                                            </div>
+                                                                        </div><!--comment-list end-->
+                                                                    </li>
+
+                                                                {% endfor %}
+                                                                <li id="ajax-design-comment-{{ design.id }}"></li>
+                                                            </ul>
+                                                        </div><!--comment-sec end-->
+                                                        <div class="post-comment">
+
+                                                            <div class="comment_box">
+                                                                <form class="design-form-comment" method="POST"
+                                                                      action="{% url 'designs:createComment' %}"
+                                                                      enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                    <input type="hidden" name="design_id"
+                                                                           value="{{ design.id }}">
+                                                                    <input type="hidden" name="user_id"
+                                                                           value="{{ request.user.id }}">
+                                                                    <input type="text" name="comment_content"
+                                                                           placeholder="Yorum Yaz">
+                                                                    <button type="submit">Gönder</button>
+                                                                </form>
+                                                            </div>
+                                                        </div><!--post-comment end-->
+                                                    </div><!--comment-section end-->
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% else %}
+                                            {% for advert in username.adverts.all %}
+                                        <div class="posty" style="margin-bottom:20px;">
+                                            <div class="post-bar no-margin">
+                                                <div class="post-bar">
+                                                    <div class="post_topbar">
+                                                        <div class="usy-dt">
+                                                             {% if advert.user.user_detail.get.user_profile_image %}
+                                                                <img src="{{ advert.user.user_detail.get.user_profile_image.url }}" width="50" height="50" alt="">
+                                                            {% else %}
+                                                                 <img src="http://via.placeholder.com/50x50" alt="">
+                                                            {% endif %}
+                                                            <div class="usy-name">
+                                                                <h3>{{ advert.user.get_full_name }}</h3>
+                                                                <span><img
+                                                                        src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                        alt="">{{ advert.publishing_date }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ed-opts">
+                                                            <a href="#" title="" class="ed-opts-open"><i
+                                                                    class="la la-ellipsis-v"></i></a>
+                                                            <ul class="ed-options">
+                                                                <li><a href="#" title="">İlanı Düzenle</a></li>
+                                                                <li><a href="#" title="">Sil</a></li>
+                                                                <li><a href="#" title="">Gizle</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="epi-sec">
+                                                        <ul class="descp">
+                                                            <li><img
+                                                                    src="{% static 'tasdesk-frontend/images/icon8.png' %}"
+                                                                    alt=""><span>{{ advert.user.user_detail.get.user_job }}</span></li>
+                                                            <li><img
+                                                                    src="{% static 'tasdesk-frontend/images/icon9.png' %}"
+                                                                    alt=""><span>India</span></li>
+                                                        </ul>
+                                                        <ul class="bk-links">
+                                                            <li><a href="#" title=""><i class="la la-bookmark"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title=""><i class="la la-envelope"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="job_descp">
+                                                        <h3>{{ advert.advert_title }}</h3>
+                                                        <h4>
+                                                            <ul class="job-dt">
+                                                                <li><a href="#"
+                                                                       title="">{{ advert.category.category_title }}</a>
+                                                                </li>
+                                                            </ul>
+                                                            <p>
+                                                        </h4>
+                                                        {{ advert.advert_content|safe|linebreaks|truncatechars:150 }}
+                                                        <a href="#" title="">daha fazla</a></p>
+
+                                                    </div>
+                                                {% if user.is_authenticated %}
+                                                    <div class="job-status-bar">
+
+                                                        <ul class="like-com">
+                                                            <li>
+                                                                <input type="hidden" name="advert_id"
+                                                                       value="{{ advert.advert_title }}">
+                                                                <input type="hidden" name="user_id"
+                                                                       value="{{ request.user.get_full_name }}">
+                                                                <a onclick="advertLike({{ advert.id }})"><i
+                                                                        class="la la-heart color-{{ advert.id }}"></i></a>
+                                                                <img src="{% static 'tasdesk-frontend/images/liked-img.png' %}"
+                                                                     alt="">
+                                                                <span><div
+                                                                        id="advert-total-like-{{ advert.id }}">{{ advert.total_likes }}</div></span>
+
+                                                            </li>
+                                                            <li><a onclick="advertShowComment({{ advert.id }})"
+                                                                   class="com" id="advert-total-comments-{{ advert.id }}"><img
+                                                                    src="{% static 'tasdesk-frontend/images/com.png' %}"
+                                                                    alt=""> Yorum {{ advert.comments.all.count }}</a></li>
+                                                        </ul>
+                                                        <a><i class="la la-eye"></i>Görüntülenme {{ advert.views.all.count }}</a>
+                                                    </div>
+                                                {% endif %}
+                                                </div><!--post-bar end-->
+                                                <div id="comment-{{ advert.id }}" style="display: none"
+                                                     class="comment-section">
+                                                    <div class="plus-ic">
+                                                        <i class="la la-plus"></i>
+                                                    </div>
+                                                    <div class="comment-sec">
+                                                        <ul>
+                                                            {% for comment in advert.comments.all %}
+                                                                <li>
+                                                                    <div class="comment-list">
+                                                                        <div class="bg-img">
+                                                                            {% if comment.user.user_detail.get.user_profile_image %}
+                                                                                <img src="{{ comment.user.user_detail.get.user_profile_image.url }}" width="40" height="40" alt="">
+                                                                            {% else %}
+                                                                                 <img src="http://via.placeholder.com/40x40" alt="">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="comment">
+                                                                            <h3>{{ comment.user.get_full_name }}</h3>
+                                                                            <span><img
+                                                                                    src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                                    alt=""> {{ comment.created_date }}</span>
+                                                                            <p>{{ comment.comment_content|linebreaks }} </p>
+
+                                                                        </div>
+                                                                    </div><!--comment-list end-->
+                                                                </li>
+
+                                                            {% endfor %}
+                                                            <li id="ajax-advert-comment-{{ advert.id }}"></li>
+                                                        </ul>
+                                                    </div><!--comment-sec end-->
+                                                    <div class="post-comment">
+
+                                                        <div class="comment_box">
+                                                            <form class="advert-form-comment" method="POST" action="{% url 'adverts:createComment' %}"
+                                                                  enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="advert_id"
+                                                                       value="{{ advert.id }}">
+                                                                <input type="hidden" name="user_id"
+                                                                       value="{{ request.user.id }}">
+                                                                <input type="text" name="comment_content"
+                                                                       placeholder="Yorum Yaz">
+                                                                <button type="submit">Gönder</button>
+                                                            </form>
+                                                        </div>
+                                                    </div><!--post-comment end-->
+                                                </div><!--comment-section end-->
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+
+                                        {% endif %}
+
+											<div class="process-comm">
+												<div class="spinner">
+													<div class="bounce1"></div>
+													<div class="bounce2"></div>
+													<div class="bounce3"></div>
+												</div>
+											</div><!--process-comm end-->
+										</div><!--posts-section end-->
+									</div><!--product-feed-tab end-->
+									<div class="product-feed-tab" id="info-dd">
+										<div class="user-profile-ov">
+											<h3><a href="#" title="" >Hakkında</a>
+                                                {% if request.user.id == username.id %}
+                                                <a href="#" title="" class="overview-open"><i class="fa fa-pencil"></i></a>
+                                                {% endif %}
+                                            </h3>
+											<p>{{ username.user_detail.get.about }}</p>
+										</div><!--user-profile-ov end-->
+
+                                        <div class="user-profile-ov">
+											<h3><a href="#" title="" >Deneyimler </a>
+                                                {% if request.user.id == username.id %}
+                                                <a href="#" title="" class="exp-bx-open"><i class="fa fa-pencil"></i></a>
+                                                {% endif %}
+                                            </h3>
+											<p>{{ username.user_detail.get.experiences }}</p>
+										</div><!--user-profile-ov end-->
+
+										<div class="user-profile-ov">
+											<h3><a href="#" title="" >Eğitim Bilgileri</a>
+                                                {% if request.user.id == username.id %}
+                                                <a href="#" title="" class="ed-box-open"><i class="fa fa-pencil"></i></a>
+                                                {% endif %}
+                                            </h3>
+											<p>{{username.user_detail.get.graduations }}</p>
+                                        </div><!--user-profile-ov end-->
+
+                                        <div class="user-profile-ov">
+											<h3><a href="#" title="" >Lokasyon</a> {% if request.user.id == username.id %}
+                                                <a href="#" title="" class="lct-box-open"><i class="fa fa-pencil"></i></a>
+                                                {% endif %}
+                                            </h3>
+
+											<p>{{ username.user_detail.get.location }}</p>
+										</div><!--user-profile-ov end-->
+
+                                        <div class="user-profile-ov">
+											<h3><a href="#" title="" >Yetenekler</a>
+                                                {% if request.user.id == username.id %}
+                                                <a href="#" title="" class="skills-open"><i class="fa fa-pencil"></i></a>
+                                                {% endif %}
+                                            </h3>
+
+                                            <p>{{ username.user_detail.get.skills }}</p>
+										</div><!--user-profile-ov end-->
+
+
+									</div><!--product-feed-tab end-->
+								</div><!--main-ws-sec end-->
+							</div>
+							<div class="col-lg-3">
+                                {% include 'tasdesk-frontend/user-profile/user-rightmenu.html' %}
+							</div>
+						</div>
+					</div><!-- main-section-data end-->
+				</div>
+			</div>
+		</main>
+        {% include 'tasdesk-frontend/layouts/partials/footer.html' %}
+
+		<div class="overview-box" id="overview-box">
+			<div class="overview-edit">
+				<h3>About</h3>
+				<form method="POST" action="{% url 'accounts:edit_about' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<textarea name="about" placeholder="Metin Girin"></textarea>
+					<button type="submit" class="save">Save</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+
+		<div class="overview-box" id="experience-box">
+			<div class="overview-edit">
+				<h3>Experiences</h3>
+				<form method="POST", action="{% url 'accounts:edit_experiences' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+                    <textarea name="experiences"></textarea>
+					<button type="submit" class="save">Save</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="education-box">
+			<div class="overview-edit">
+				<h3>Education</h3>
+				<form method="POST" action="{% url 'accounts:edit_education' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					<textarea name="graduations"></textarea>
+					<button type="submit" class="save">Save</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="location-box">
+			<div class="overview-edit">
+				<h3>Location</h3>
+				<form method="POST" action="{% url 'accounts:edit_location' %}" enctype="multipart/form-data">
+					{% csrf_token %}
+					<textarea name="location"></textarea>
+					<button type="submit" class="save">Save</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="skills-box">
+			<div class="overview-edit">
+				<h3>Skills</h3>
+				<form method="POST", action="{% url 'accounts:edit_skills' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<input type="text" name="skills" placeholder="Skills">
+					<button type="submit" class="save">Save</button>
+
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+        <div class="overview-box" id="overview-open-img">
+			<div class="overview-edit">
+				<h3>User Profile Picture</h3>
+				<form method="POST" action="{% url 'accounts:change_user_profile_image' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+					<input type="file" name="user_profile_image">
+					<button type="submit" class="save">Save</button>
+
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+		<div class="overview-box" id="create-portfolio">
+			<div class="overview-edit">
+				<h3>Create Portfolio</h3>
+				<form>
+					<input type="text" name="pf-name" placeholder="Portfolio Name">
+					<div class="file-submit">
+						<input type="file" name="file">
+					</div>
+					<div class="pf-img">
+						<img src="http://via.placeholder.com/60x60" alt="">
+					</div>
+					<input type="text" name="website-url" placeholder="htp://www.example.com">
+					<button type="submit" class="save">Save</button>
+					<button type="submit" class="cancel">Cancel</button>
+				</form>
+				<a href="#" title="" class="close-box"><i class="la la-close"></i></a>
+			</div><!--overview-edit end-->
+		</div><!--overview-box end-->
+
+
+
+{% endblock %}
+{% block js %}
+    <script>
+        function advertLike(id) {
+            $id = id;
+            $.ajax({
+                url: "{% url 'adverts:like' %}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    id: $id, csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    $('#advert-total-like-' + $id).html(response.likes_count);
+                    if (response.message === '1') {
+                        $('.advert-color-' + $id).css('color', 'red');
+                    } else {
+                        $('.advert-color-' + $id).css('color', '#b2b2b2');
+                    }
+                },
+                error: function (rs, e) {
+                    alert(rs.responseText);
+                }
+            });
+        }
+        function designLike(id) {
+            $id = id;
+            $.ajax({
+                url: "{% url 'designs:like' %}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    id: $id, csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    $('#design-total-like-' + $id).html(response.likes_count);
+                    if (response.message === '1') {
+                        $('.design-color-' + $id).css('color', 'red');
+                    } else {
+                        $('.design-color-' + $id).css('color', '#b2b2b2');
+                    }
+                },
+                error: function (rs, e) {
+                    alert(rs.responseText);
+                }
+            });
+        }
+
+
+        function advertShowComment(advert_id) {
+            if (document.getElementById("advert-comment-" + advert_id).style.display === "none") {
+                $("#advert-comment-" + advert_id).show();
+                document.getElementById("advert-comment-" + advert_id).style.display = "block";
+            } else {
+                $("#advert-comment-" + advert_id).hide();
+            }
+        }
+         function designShowComment(design_id) {
+            if (document.getElementById("design-comment-" + design_id).style.display === "none") {
+                $("#design-comment-" + design_id).show();
+                document.getElementById("design-comment-" + design_id).style.display = "block";
+            } else {
+                $("#design-comment-" + design_id).hide();
+            }
+        }
+
+        $(document).ready(function () {
+           $('.advert-form-comment').submit(function (e){
+               e.preventDefault();
+               var form = $(this);
+               var form_action = form.attr('action');
+               var form_serialize = form.serialize();
+               $.ajax({
+                   method: "POST",
+                   type:"json",
+                   url: form_action,
+                   data: form_serialize,
+                   success: function (response) {
+                       var commentline =
+                           '<div class="comment-list">\n' +
+                           '<div class="bg-img">\n' +
+                           '<img src="http://via.placeholder.com/40x40"\n' +
+                           'alt="">\n' +
+                           '</div>\n' +
+                           '<div class="comment">\n' +
+                           '<h3>'+response.user+'</h3>\n' +
+                           '<span><img\n' +
+                           'src="{% static 'tasdesk-frontend/images/clock.png' %}"\n' +
+                           'alt=""> 1 dakika önce</span>\n' +
+                           '<p>'+response.content+' </p>\n' +
+                           '\n' +
+                           '</div>\n' +
+                           '</div><!--comment-list end-->\n';
+                       $('#ajax-advert-comment-' + response.advert_id).html(commentline);
+
+                       var total_comments = '<img\n' +'src="{% static 'tasdesk-frontend/images/com.png' %}"\n' +
+                           ' alt=""> Yorum '+response.total_comments ;
+
+                        $('#advert-total-comments-' + response.advert_id).html(total_comments);
+                   },
+                   error: function (rs, e) {
+                        alert(rs.responseText);
+                   }
+               });
+           });
+        });
+
+        $(document).ready(function () {
+            $('.design-form-comment').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var form_action = form.attr('action');
+                var form_serialize = form.serialize();
+                $.ajax({
+                    method: "POST",
+                    type: "json",
+                    url: form_action,
+                    data: form_serialize,
+                    success: function (response) {
+                        var commentline =
+                            '<div class="comment-list">\n' +
+                            '<div class="bg-img">\n' +
+                            '<img src="http://via.placeholder.com/40x40"\n' +
+                            'alt="">\n' +
+                            '</div>\n' +
+                            '<div class="comment">\n' +
+                            '<h3>' + response.user + '</h3>\n' +
+                            '<span><img\n' +
+                            'src="{% static 'tasdesk-frontend/images/clock.png' %}"\n' +
+                            'alt=""> 1 dakika önce</span>\n' +
+                            '<p>' + response.content + ' </p>\n' +
+                            '\n' +
+                            '</div>\n' +
+                            '</div><!--comment-list end-->\n';
+                        $('#ajax-design-comment-' + response.design_id).html(commentline);
+
+                        var total_comments = '<img\n' + 'src="{% static 'tasdesk-frontend/images/com.png' %}"\n' +
+                            ' alt=""> Yorum ' + response.total_comments;
+
+                        $('#design-total-comments-' + response.design_id).html(total_comments);
+                    },
+                    error: function (rs, e) {
+                        alert(rs.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
+
+

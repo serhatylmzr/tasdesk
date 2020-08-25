@@ -1,0 +1,161 @@
+{% load static %}
+<div class="right-sidebar">
+    {%  if user.is_not_authenticated %}
+    <div class="widget widget-about">
+        <img src="{% static 'tasdesk-frontend/images/tasdesk-logo.jpg' %}" height="120" alt="">
+        <h3>TASDESK</h3>
+        <span>Tasarımcı Ekosistemi</span>
+        <div class="sign_link">
+            <h3><a href="{% url 'accounts:register_view' %}" title="">Kayıt Ol</a></h3>
+            <a href="#" title="">Daha Fazlasını Öğren</a>
+        </div>
+    </div><!--widget-about end-->
+    {% endif %}
+    <div class="widget widget-jobs">
+        <div class="sd-title">
+            <h3>Popüler İlanlar</h3>
+            <i class="la la-ellipsis-v"></i>
+        </div>
+        <div class="jobs-list">
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior Product Designer</h3>
+                    <p>Tekstil Fabrikamız için Ürün Tasarımcısı Aranıyor.</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior UI / UX Designer</h3>
+                    <p>Şirketimiz İçin Arayüz Tasarımcısı Aranıyor</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Junior Model Designer</h3>
+                    <p>Mobilya Fabrikamız İçin Model Tasarımcısı Arıyoruz</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior Product Designer</h3>
+                    <p>Mobilya Fabrikamız İçin Model Tasarımcısı Arıyoruz</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior Developer Designer</h3>
+                    <p>Mobilya Fabrikamız İçin Model Tasarımcısı Arıyoruz.</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+        </div><!--jobs-list end-->
+    </div><!--widget-jobs end-->
+    <div class="widget widget-jobs">
+        <div class="sd-title">
+            <h3>Haftanın En Çok Görüntülenenleri</h3>
+            <i class="la la-ellipsis-v"></i>
+        </div>
+        <div class="jobs-list">
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior Product Designer</h3>
+                    <p>Mobilya Fabrikamız İçin Model Tasarımcısı Arıyoruz</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Senior UI / UX Designer</h3>
+                    <p>Şirketimiz İçin Arayüz Tasarımcısı Aranıyor</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+            <div class="job-info">
+                <div class="job-details">
+                    <h3>Junior Model Designer</h3>
+                    <p>Şirketimiz İçin Arayüz Tasarımcısı Aranıyor</p>
+                </div>
+                <div class="hr-rate">
+                    <span>$25/hr</span>
+                </div>
+            </div><!--job-info end-->
+        </div><!--jobs-list end-->
+    </div><!--widget-jobs end-->
+    <div class="widget suggestions full-width">
+        <div class="sd-title">
+            <h3>En Çok Aranan Profiller</h3>
+            <i class="la la-ellipsis-v"></i>
+        </div><!--sd-title end-->
+        <div class="suggestions-list">
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Serhat Yılmazer</h4>
+                    <span>Graphic Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Emre İnaç</h4>
+                    <span>Model Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Ahmet Ezgi</h4>
+                    <span>Ui Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Serhat Yılmazer</h4>
+                    <span>Graphic Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Emre İnaç</h4>
+                    <span>Model Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="suggestion-usd">
+                <img src="http://via.placeholder.com/35x35" alt="">
+                <div class="sgt-text">
+                    <h4>Ahmet Ezgi</h4>
+                    <span>Ui Designer</span>
+                </div>
+                <span><i class="la la-plus"></i></span>
+            </div>
+            <div class="view-more">
+                <a href="#" title="">Daha Fazla Görüntüle</a>
+            </div>
+        </div><!--suggestions-list end-->
+    </div>
+</div><!--right-sidebar end-->

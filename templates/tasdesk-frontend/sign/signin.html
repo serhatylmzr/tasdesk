@@ -1,0 +1,79 @@
+{% extends 'tasdesk-frontend/layouts/master.html' %}
+{% load static %}
+{% block title %}Giriş Yap {% endblock %}
+{% block body %}
+<div class="sign-in-page">
+			<div class="signin-popup">
+				<div class="signin-pop">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="cmp-info">
+								<div class="cm-logo">
+									<img src="{% static 'tasdesk-frontend/images/tasdesk-logo.jpg' %}" width="150" height="80px" alt="">
+									<p>Tasdesk ,Tasarım arayanları ve Tasarımcıları buluşturan tasarım ekosistemi,ilanlar ile tasarımcılar iş arayabilirken,Tasarım arayan şahıslar
+                                    tasarımlara göz ve tasarımcılara bakarak kendisi için uygun tasarımcıyı bulup iletişime geçebilir</p>
+								</div><!--cm-logo end-->
+								<img src="{% static 'tasdesk-frontend/images/cm-main-img.png' %}" alt="">
+							</div><!--cmp-info end-->
+						</div>
+						<div class="col-lg-6">
+							<div class="login-sec">
+
+								<!-- *************buraya signin sayfası entegre edilecek*********** -->
+
+                                <div class="sign_in_sec current" id="tab-1">
+
+									<h3>Giriş Yap</h3>
+									<form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+										<div class="row">
+											<div class="col-lg-12 no-pdd">
+												<div class="sn-field">
+													<input type="text" name="username" placeholder="Kullanıcı Adı">
+													<i class="la la-user"></i>
+												</div><!--sn-field end-->
+											</div>
+											<div class="col-lg-12 no-pdd">
+												<div class="sn-field">
+													<input type="password" name="password" placeholder="Şifre">
+													<i class="la la-lock"></i>
+												</div>
+											</div>
+											<div class="col-lg-12 no-pdd">
+												<div class="checky-sec">
+													<div class="fgt-sec">
+														<input type="checkbox" name="cc" id="c1">
+														<label for="c1">
+															<span></span>
+														</label>
+														<small>Beni Hatırla </small>
+													</div><!--fgt-sec end-->
+													<a href="#" title="">Şifreni mi unuttun?</a>
+												</div>
+											</div>
+											<div class="col-lg-12 no-pdd">
+												<button type="submit" value="submit">Giriş Yap</button>
+											</div>
+										</div>
+									</form>
+									<div class="login-resources">
+										<h4>Sosyal Medya ile Giriş Yap</h4>
+										<ul>
+											<li><a href="#" title="" class="fb"><i class="fa fa-facebook"></i>Facebook ile Giriş Yap</a></li>
+											<li><a href="#" title="" class="tw"><i class="fa fa-twitter"></i>Twitter ile Giriş Yap</a></li>
+										</ul>
+									</div><!--login-resources end-->
+								</div><!--sign_in_sec end-->
+								<!--sign_in_sec end-->
+								<!-- buraya signup sayfası entegre edilecek -->
+
+							</div><!--login-sec end-->
+						</div>
+					</div>
+				</div><!--signin-pop end-->
+			</div><!--signin-popup end-->
+
+			<!-- ****footer entegre edilecek***** -->
+            {% include 'tasdesk-frontend/layouts/partials/footer.html' %}
+		</div><!--sign-in-page end-->
+{% endblock %}

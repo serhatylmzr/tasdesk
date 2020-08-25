@@ -1,0 +1,100 @@
+{% extends 'tasdesk-frontend/layouts/master.html' %}
+{% load static %}
+{% block title %}Kayıt Ol {% endblock %}
+{% block body %}
+<div class="sign-in-page">
+			<div class="signin-popup">
+				<div class="signin-pop">
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="cmp-info">
+								<div class="cm-logo">
+									<img src="{% static 'tasdesk-frontend/images/tasdesk-logo.jpg' %}" width="150" height="80px" alt="">
+									<p>Tasdesk ,Tasarım arayanları ve Tasarımcıları buluşturan tasarım ekosistemi,ilanlar ile tasarımcılar iş arayabilirken,Tasarım arayan şahıslar
+                                    tasarımlara göz ve tasarımcılara bakarak kendisi için uygun tasarımcıyı bulup iletişime geçebilir</p>
+								</div><!--cm-logo end-->
+								<img src="{% static 'tasdesk-frontend/images/cm-main-img.png' %}" alt="">
+							</div><!--cmp-info end-->
+						</div>
+						<div class="col-lg-6">
+							<div class="login-sec">
+								<!-- buraya signup sayfası entegre edilecek -->
+                                <div class="sign_in_sec current" id="tab-1">
+										<form method="POST" enctype="multipart/form-data">
+                                            {% csrf_token %}
+											<div class="row">
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" name="first_name" placeholder="Adı">
+														<i class="la la-user"></i>
+													</div>
+												</div>
+                                                <div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" name="last_name" placeholder="Soyadı">
+														<i class="la la-user"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="email" name="email" placeholder="E-posta Adresi">
+														<i class="la la-globe"></i>
+													</div>
+												</div>
+                                                <div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="text" name="username" placeholder="Kullanıcı Adı">
+														<i class="la la-globe"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="password" name="password" placeholder="Şifreniz">
+														<i class="la la-lock"></i>
+													</div>
+												</div>
+												<div class="col-lg-12 no-pdd">
+													<div class="sn-field">
+														<input type="password" name="password_confirm" placeholder="Şifreyi Tekrar Yazınız">
+														<i class="la la-lock"></i>
+													</div>
+												</div>
+                                                <div class="col-lg-12 no-pdd">
+                                                    <div class="checky-sec st2">
+														<div class="fgt-sec">
+															Tasarımcı mısınız ?&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;<input type="checkbox" name="is_designer" id="1">
+															<label for="a1">
+																<span></span>
+															</label>
+															<small></small>
+														</div><!--fgt-sec end-->
+
+													</div>
+                                                </div>
+												<!--<div class="col-lg-12 no-pdd">
+													<div class="checky-sec st2">
+														<div class="fgt-sec">
+															<input type="checkbox" name="cc" id="c2">
+															<label for="c2">
+																<span></span>
+															</label>
+															<small>Evet şartları kabul ediyorum.</small>
+														</div>fgt-sec end-->
+													<!--</div>
+												</div> -->
+												<div class="col-lg-12 no-pdd">
+													<button type="submit" value="submit">Kayıt Ol</button>
+												</div>
+											</div>
+										</form>
+								</div>
+							</div><!--login-sec end-->
+						</div>
+					</div>
+				</div><!--signin-pop end-->
+			</div><!--signin-popup end-->
+
+			<!-- ****footer entegre edilecek***** -->
+            {% include 'tasdesk-frontend/layouts/partials/footer.html' %}
+		</div><!--sign-in-page end-->
+{% endblock %}

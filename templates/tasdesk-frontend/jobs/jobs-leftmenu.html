@@ -1,0 +1,39 @@
+{% load static %}
+<div class="filter-secs">
+    <div class="filter-heading">
+        <h3>Filtrele</h3>
+        <a href="#" title="">Filtreleri Temizle</a>
+    </div><!--filter-heading end-->
+    <div class="paddy">
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Kategoriye Göre Filtrele</h3>
+                <a href="#" title=""></a>
+            </div>
+            <form class="job-tp" method="POST" action="{% url 'adverts:index' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <select name="category_id">
+                    {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_title }}</option>
+                    {% endfor %}
+                </select>
+                <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+                <button class="btn-success" style="margin-top: 10px;border-radius: 30px;float:right;padding: 5px;
+                    border:1px solid green" type="submit">Filtrele
+                </button>
+            </form>
+        </div>
+        <div class="filter-dd">
+            <div class="filter-ttl">
+                <h3>Aramaya Göre Filtrele</h3>
+            </div>
+            <form method="GET" action="{% url 'adverts:index' %}" enctype="multipart/form-data">
+                <input type="text" name="q" value="{{ request.GET.q }}" placeholder="İsim,İlan Başlığı,İçerik">
+                <button class="btn-danger" style="margin-top: 10px;border-radius: 30px;float:right;padding: 5px;
+                    border:1px solid red" type="submit">Filtrele
+                </button>
+            </form>
+        </div>
+
+    </div>
+</div>

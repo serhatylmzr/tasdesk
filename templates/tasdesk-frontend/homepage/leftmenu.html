@@ -1,0 +1,110 @@
+							{% load static %}
+								<div class="main-left-sidebar no-margin">
+                                    {% if user.is_authenticated %}
+									<div class="user-data full-width">
+										<div class="user-profile">
+											<div class="username-dt">
+												<div class="usr-pic">
+                                                    {% if user.user_detail.get.user_profile_image %}
+                                                        <img src="{{ user.user_detail.get.user_profile_image.url }}" alt="">
+                                                    {% else %}
+													    <img src="http://via.placeholder.com/100x100" alt="">
+                                                    {% endif %}
+												</div>
+											</div><!--username-dt end-->
+											<div class="user-specs">
+												<h3>{{ request.user.get_full_name }}</h3>
+												<span>{{ user.user_detail.get.user_job }}</span>
+											</div>
+										</div><!--user-profile end-->
+										<ul class="user-fw-status">
+											<li>
+												<h4>Takip Edilen</h4>
+												<span>{{ user.user_detail.get.followed}}</span>
+											</li>
+											<li>
+												<h4>Takipçi</h4>
+												<span>{{ user.user_detail.get.followers }}</span>
+											</li>
+											<li>
+												<a href="{% url 'accounts:profile' request.user.username %}" title="">Profili Görüntüle</a>
+											</li>
+										</ul>
+									</div><!--user-data end-->
+                                    {% endif %}
+									<div class="suggestions full-width">
+										<div class="sd-title">
+											<h3>Önerilen Profiller</h3>
+											<i class="la la-ellipsis-v"></i>
+										</div><!--sd-title end-->
+										<div class="suggestions-list">
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Ahmet Ezgi</h4>
+													<span>Ui Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Emre İnaç</h4>
+													<span>Model Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Serhat Yılmazer</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Ahmet Ezgi</h4>
+													<span>Ui Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Emre İnaç</h4>
+													<span>Model Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="suggestion-usd">
+												<img src="http://via.placeholder.com/35x35" alt="">
+												<div class="sgt-text">
+													<h4>Serhat Yılmazer</h4>
+													<span>Graphic Designer</span>
+												</div>
+												<span><i class="la la-plus"></i></span>
+											</div>
+											<div class="view-more">
+												<a href="#" title="">Daha Fazlasını Görüntüle</a>
+											</div>
+										</div><!--suggestions-list end-->
+									</div><!--suggestions end-->
+									<div class="tags-sec full-width">
+										<ul>
+											<li><a href="#" title="">Yardım Merkezi</a></li>
+											<li><a href="#" title="">Hakkımızda</a></li>
+											<li><a href="#" title="">Gizlilik Politikası</a></li>
+											<li><a href="#" title="">Tasarımcı Topluluğu</a></li>
+											<li><a href="#" title="">Çerez Politikası</a></li>
+											<li><a href="#" title="">Kariyer</a></li>
+											<li><a href="#" title="">Dil</a></li>
+											<li><a href="#" title="">Telif Hakları</a></li>
+										</ul>
+										<div class="cp-sec">
+											<img src="{% static 'tasdesk-frontend/images/tasdesk-logo.jpg' %}" width="40" height="40" alt="">
+											<p><img src="{% static 'tasdesk-frontend/images/cp.png' %}" alt="">Copyright 2019</p>
+										</div>
+									</div><!--tags-sec end-->
+								</div><!--main-left-sidebar end-->

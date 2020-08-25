@@ -1,0 +1,47 @@
+{% load static %}
+<div class="post-popup pst-pj">
+    <div class="post-project">
+        <h3>Tasarım Paylaş</h3>
+        <div class="post-project-fields">
+            <form method="POST" action="{% url 'designs:create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-lg-12">
+                        <input type="text" name="design_title" placeholder="Tasarım Başlığı">
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="inp-field">
+                            <select name="category">
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.category_title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <textarea name="design_content" placeholder="Açıklama"></textarea>
+                    </div>
+                    <div class="col-lg-6"><p style="color:black"><i style="color:red" class="fa fa-image"></i>&nbsp;&nbsp;&nbsp;
+                        Tasarım Görseli Seçiniz &nbsp;&nbsp;
+                        <i style="color:green" class="fa fa-arrow-circle-o-right"></i>&nbsp;
+                        <i style="color:green" class="fa fa-arrow-circle-o-right"></i>&nbsp;
+                        <i style="color:green" class="fa fa-arrow-circle-o-right"></i>
+                    </p></div>
+                    <div class="col-lg-6">
+                        <input type="file" name="design_image" id="design_image" placeholder="Tasarım Görseli">
+                    </div>
+
+                    <div class="col-lg-12">
+                        <ul>
+                            <li>
+                                <button class="active" type="submit" value="post">Paylaş</button>
+                            </li>
+                            <li><a href="#" title="">İptal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div><!--post-project-fields end-->
+        <a href="#" title=""><i class="la la-times-circle-o"></i></a>
+    </div><!--post-project end-->
+</div><!--post-project-popup end-->

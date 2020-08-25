@@ -1,0 +1,20 @@
+<!-- Master sayfası temanın iskeletidir.Her şey master üzerine entegre edilecek -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<!--<head> tagı içindekiler header.html 'den entegre edilecek (her sayfada olmak zorunda) -->
+{% include 'tasdesk-frontend/layouts/partials/header.html' %}
+<body>
+	<div class="wrapper">
+
+		<!-- Navbar buraya entegre edilecek (her sayfada olmak zorunda)-->
+        {% include 'tasdesk-frontend/layouts/partials/navbar.html' %}
+    <!-- Her sayfa için ayrı olan content içeriği buraya gelecek -->
+        {% block body %} {% endblock %}
+
+	</div>
+		<!-- javascript kodlarının olduğu footer-end buraya gelecek (her sayfada olmak zorunda) -->
+        {% include 'tasdesk-frontend/layouts/partials/footer-end.html' %}
+        {% block js %} {% endblock %}
+</body>
+</html>

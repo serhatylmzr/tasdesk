@@ -1,0 +1,260 @@
+{% extends 'tasdesk-frontend/layouts/master.html' %}
+{% load static %}
+{% block title %}Anasayfa {% endblock %}
+{% block body %}
+    <main>
+        <div class="main-section">
+            <div class="container">
+                <div class="main-section-data">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <!--******jobs-leftmenu buraya entegre edilecek***** -->
+                            {% include 'tasdesk-frontend/projects/projects-leftmenu.html' %}
+                            <!--filter-secs end-->
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="main-ws-sec">
+                                <div class="posts-section">
+                                    {% for design in designs %}
+                                        <div class="posty" style="margin-bottom:20px;">
+                                            <div class="post-bar no-margin">
+                                                <div class="post-bar">
+                                                    <div class="post_topbar">
+                                                        <div class="usy-dt">
+                                                             {% if design.user.user_detail.get.user_profile_image %}
+                                                                <img src="{{ design.user.user_detail.get.user_profile_image.url }}" width="50" height="50" alt="">
+                                                            {% else %}
+                                                                 <img src="http://via.placeholder.com/50x50" alt="">
+                                                            {% endif %}
+                                                            <div class="usy-name">
+                                                                <h3>{{ design.user.get_full_name }}</h3>
+                                                                <span><img
+                                                                        src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                        alt="">{{ design.publishing_date }}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ed-opts">
+                                                            <a href="#" title="" class="ed-opts-open"><i
+                                                                    class="la la-ellipsis-v"></i></a>
+                                                            <ul class="ed-options">
+                                                                <li><a href="#" title="">Tasarımı Düzenle</a></li>
+                                                                <li><a href="#" title="">Sil</a></li>
+                                                                <li><a href="#" title="">Gizle</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <div class="epi-sec">
+                                                        <ul class="descp">
+                                                            <li><img
+                                                                    src="{% static 'tasdesk-frontend/images/icon8.png' %}"
+                                                                    alt=""><span>{{ design.user.user_detail.get.user_job }}</span></li>
+                                                            <li><img
+                                                                    src="{% static 'tasdesk-frontend/images/icon9.png' %}"
+                                                                    alt=""><span>India</span></li>
+                                                        </ul>
+                                                        <ul class="bk-links">
+                                                            <li><a href="#" title=""><i class="la la-bookmark"></i></a>
+                                                            </li>
+                                                            <li><a href="#" title=""><i class="la la-envelope"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="job_descp" >
+                                                            {% if design.design_image %}
+                                                            <img src="{{ design.design_image.url }}" style="max-height: 300px;max-width: 500px;">
+                                                            {% endif %}
+                                                    </div>
+                                                    <div class="job_descp">
+                                                        <h3 style="margin-top:10px" >{{ design.design_title }}</h3>
+                                                        <h4>
+                                                            <ul class="job-dt">
+                                                                <li><a href="#"
+                                                                       title="">{{ design.category.category_title }}</a>
+                                                                </li>
+                                                            </ul>
+                                                            <p>
+                                                        </h4>
+                                                        {{ design.design_content|safe|linebreaks|truncatechars:150 }}
+                                                        <a href="#" title="">daha fazla</a></p>
+                                                    </div>
+                                                {% if user.is_authenticated %}
+                                                    <div class="job-status-bar">
+
+                                                        <ul class="like-com">
+                                                            <li>
+                                                                <input type="hidden" name="design_id"
+                                                                       value="{{ design.design_title }}">
+                                                                <input type="hidden" name="user_id"
+                                                                       value="{{ request.user.get_full_name }}">
+                                                                <a onclick="designLike({{ design.id }})"><i
+                                                                        class="la la-heart color-{{ design.id }}"></i></a>
+                                                                <img src="{% static 'tasdesk-frontend/images/liked-img.png' %}"
+                                                                     alt="">
+                                                                <span><div
+                                                                        id="total-like-{{ design.id }}">{{ design.total_likes }}</div></span>
+
+                                                            </li>
+                                                            <li><a onclick="showComment({{ design.id }})"
+                                                                   class="com" id="total-comments-{{ design.id }}"><img
+                                                                    src="{% static 'tasdesk-frontend/images/com.png' %}"
+                                                                    alt=""> Yorum {{ design.comments.all.count }}</a>
+                                                            </li>
+                                                        </ul>
+                                                        <a><i class="la la-eye"></i>Görüntülenme {{ design.views.all.count }}
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                                </div><!--post-bar end-->
+                                                <div id="comment-{{ design.id }}" style="display: none"
+                                                     class="comment-section">
+                                                    <div class="plus-ic">
+                                                        <i class="la la-plus"></i>
+                                                    </div>
+                                                    <div class="comment-sec">
+                                                        <ul>
+                                                            {% for comment in design.comments.all %}
+                                                                <li>
+                                                                    <div class="comment-list">
+                                                                        <div class="bg-img">
+                                                                            {% if comment.user.user_detail.get.user_profile_image %}
+                                                                                <img src="{{ comment.user.user_detail.get.user_profile_image.url }}" width="40" height="40" alt="">
+                                                                            {% else %}
+                                                                                 <img src="http://via.placeholder.com/40x40" alt="">
+                                                                            {% endif %}
+                                                                        </div>
+                                                                        <div class="comment">
+                                                                            <h3>{{ comment.user.get_full_name }}</h3>
+                                                                            <span><img
+                                                                                    src="{% static 'tasdesk-frontend/images/clock.png' %}"
+                                                                                    alt=""> {{ comment.created_date }}</span>
+                                                                            <p>{{ comment.comment_content|linebreaks }} </p>
+
+                                                                        </div>
+                                                                    </div><!--comment-list end-->
+                                                                </li>
+
+                                                            {% endfor %}
+                                                            <li id="ajax-comment-{{ design.id }}"></li>
+                                                        </ul>
+                                                    </div><!--comment-sec end-->
+                                                    <div class="post-comment">
+
+                                                        <div class="comment_box">
+                                                            <form class="form-comment" method="POST"
+                                                                  action="{% url 'designs:createComment' %}"
+                                                                  enctype="multipart/form-data">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="design_id"
+                                                                       value="{{ design.id }}">
+                                                                <input type="hidden" name="user_id"
+                                                                       value="{{ request.user.id }}">
+                                                                <input type="text" name="comment_content"
+                                                                       placeholder="Yorum Yaz">
+                                                                <button type="submit">Gönder</button>
+                                                            </form>
+                                                        </div>
+                                                    </div><!--post-comment end-->
+                                                </div><!--comment-section end-->
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                    <div class="process-comm">
+                                        <div class="spinner">
+                                            <div class="bounce1"></div>
+                                            <div class="bounce2"></div>
+                                            <div class="bounce3"></div>
+                                        </div>
+                                    </div><!--process-comm end-->
+                                </div><!--posts-section end-->
+                            </div><!--main-ws-sec end-->
+                        </div>
+                        <div class="col-lg-3">
+                            <!--******jobs-rightmenu buraya entegre edilecek***** -->
+                            {% include 'tasdesk-frontend/projects/projects-rightmenu.html' %}
+                            <!--right-sidebar end-->
+                        </div>
+                    </div>
+                </div><!-- main-section-data end-->
+            </div>
+        </div>
+    </main>
+
+{% endblock %}
+
+{% block js %}
+    <script>
+        function designLike(id) {
+            $id = id;
+            $.ajax({
+                url: "{% url 'designs:like' %}",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    id: $id, csrfmiddlewaretoken: "{{ csrf_token }}"
+                },
+                success: function (response) {
+                    $('#total-like-' + $id).html(response.likes_count);
+                    if (response.message === '1') {
+                        $('.color-' + $id).css('color', 'red');
+                    } else {
+                        $('.color-' + $id).css('color', '#b2b2b2');
+                    }
+                },
+                error: function (rs, e) {
+                    alert(rs.responseText);
+                }
+            });
+        }
+
+        function showComment(design_id) {
+            if (document.getElementById("comment-" + design_id).style.display === "none") {
+                $("#comment-" + design_id).show();
+                document.getElementById("comment-" + design_id).style.display = "block";
+            } else {
+                $("#comment-" + design_id).hide();
+            }
+        }
+
+        $(document).ready(function () {
+            $('.form-comment').submit(function (e) {
+                e.preventDefault();
+                var form = $(this);
+                var form_action = form.attr('action');
+                var form_serialize = form.serialize();
+                $.ajax({
+                    method: "POST",
+                    type: "json",
+                    url: form_action,
+                    data: form_serialize,
+                    success: function (response) {
+                        var commentline =
+                            '<div class="comment-list">\n' +
+                            '<div class="bg-img">\n' +
+                            '<img src="http://via.placeholder.com/40x40"\n' +
+                            'alt="">\n' +
+                            '</div>\n' +
+                            '<div class="comment">\n' +
+                            '<h3>' + response.user + '</h3>\n' +
+                            '<span><img\n' +
+                            'src="{% static 'tasdesk-frontend/images/clock.png' %}"\n' +
+                            'alt=""> 1 dakika önce</span>\n' +
+                            '<p>' + response.content + ' </p>\n' +
+                            '\n' +
+                            '</div>\n' +
+                            '</div><!--comment-list end-->\n';
+                        $('#ajax-comment-' + response.design_id).html(commentline);
+
+                        var total_comments = '<img\n' + 'src="{% static 'tasdesk-frontend/images/com.png' %}"\n' +
+                            ' alt=""> Yorum ' + response.total_comments;
+
+                        $('#total-comments-' + response.design_id).html(total_comments);
+                    },
+                    error: function (rs, e) {
+                        alert(rs.responseText);
+                    }
+                });
+            });
+        });
+
+    </script>
+{% endblock %}
